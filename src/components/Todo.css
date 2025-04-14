@@ -1,0 +1,127 @@
+.todo-item{
+    width: 470px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #45455c; 
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-top: 12px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.todo-item:hover {
+    background: #5a5a7d; /* Biraz daha açık mor */
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
+    transform: translateY(-2px); /* Hafif yukarı kalkma efekti */
+  }
+
+
+.todo-content{
+    flex: 1;
+    font-size: 16px;
+    color: #fff;
+    word-wrap: break-word;
+}
+
+
+
+.todo-input,
+.todo-create-button {
+    width: 100%;
+    max-width: 500px; 
+    box-sizing: border-box; 
+    margin-bottom: 20px;
+}
+
+
+.todo-input {
+    width: 500px;
+    padding: 5px;
+    border: 1px solid #8a75ff;
+    border-radius: 6px;
+    background: #2c2c38;
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+    margin-right: 5px;
+  }
+  
+.todo-input-item{
+    width: 400px;
+    margin-right: 5px;
+}
+
+/* .todo-input:focus {
+    border-color: #8a75ff;
+    box-shadow: 0px 0px 8px rgba(138, 117, 255, 0.6);
+  } */
+
+.todo-create-button {
+    margin-top: 10px;
+    padding: 12px;
+    width: 500px;
+    border: none;
+    border-radius: 6px;
+    background-color: #6c5ce7; 
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+    
+}
+
+.todo-create-button:hover {
+    background-color: #5a4ec7; 
+    transform: scale(1.05);
+}
+
+
+.todo-actions{
+    display: flex;
+     gap: 10px;
+}
+
+.todo-icon {
+    padding: 8px;
+    background: white;
+    border: none;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.todo-icon-remove{
+    color: #880808;
+}
+
+.todo-icon-edit{
+    color: #b6a725; 
+}
+
+.todo-icon-check{
+    color: #046719;
+}
+
+
+.ant-btn {
+    min-width: auto;
+    padding: 4px 8px;
+}
+
+
+.ant-input{
+    background-color: #5a5a7d;
+    color: #2c2c38;
+}
+
+.ant-btn:hover{
+    background-color: #45455c
+}
+
+:where(.css-dev-only-do-not-override-1261szd).ant-btn-variant-solid {
+    color:#046719;
+    background: #fdfdfd;
+}

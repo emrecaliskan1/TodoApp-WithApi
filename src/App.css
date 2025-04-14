@@ -1,0 +1,78 @@
+.App {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #2c2c38;
+  margin-top: 50px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+ 
+}
+
+
+
+.filter{
+  width: 500px;
+  box-sizing: border-box;
+  font-weight: bold;
+}
+
+.filter,
+.todo-input,
+.todo-create-button {
+  padding: 10px;
+  margin: 10px 0;
+  max-width: 500px;
+
+}
+
+
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: #2c2c38; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Arial', sans-serif;
+  color: #e0e0e0;
+}
+
+.main {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #3b3b4f;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.todo-create {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+
+:where(.css-dev-only-do-not-override-1261szd).ant-input-affix-wrapper {
+  position: relative;
+  display: inline-flex
+;
+  width: 500px;
+  min-width: 0;
+  padding: 4px 11px;
+  color: rgba(0, 0, 0, 0.88);
+  font-size: 14px;
+  line-height: 1.5714285714285714;
+  border-radius: 6px;
+  transition: all 0.2s;
+}
