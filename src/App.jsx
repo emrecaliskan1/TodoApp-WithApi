@@ -1,48 +1,99 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
 import TodoCreate from './components/TodoCreate'
 import TodoList from './components/TodoList'
-import axios from 'axios'
-import { AudioOutlined } from '@ant-design/icons';
-import { Input, Space } from 'antd';
 import Search from 'antd/es/transfer/search'
-
-const API_URL = ""
-const SHEET_NAME = ""
-
+import { ToastContainer, toast } from 'react-toastify';
+import {
+  fetchTodos,
+  fetchTodoById,
+  updateTodo,
+  deleteTodo,
+  createTodo
+} from './services/api';
 
 
 function App() {
 
   const [todos,setTodos] = useState([])
-  const [filteredTodos,setFilteredTodos] = useState(todos)
+  const [todoContent, setTodoContent] = useState("");
+  const [filteredTodos,setFilteredTodos] = useState([])
 
+  useEffect(() => {
+    const getTodos = async () => {
+      const data = await fetchTodos();
+      console.log("API'den gelen data:", data); // burada kontrol et
+      setTodos(data);
+      setFilteredTodos(data);
+    };
+    getTodos();
+    toast.success("TodoList başarıyla veritabanından getirildi...")
+  }, []);
   
-  const createTodo = (newTodo) => {
-    setTodos([...todos,newTodo])
-    setFilteredTodos([...todos,newTodo])
+  useEffect(() => {
+    console.log("filteredTodos:", filteredTodos);
+  }, [filteredTodos]);
+
+  const removeTodo = async (id) => {
+    try {
+      // Silme işlemini API'ye gönder
+      await deleteTodo(id);
+  
+      // Silinen todo'yu todos listesinden çıkararak güncelle
+      const updatedTodos = todos.filter((todo)=>todo.id !== id)
+      setTodos(updatedTodos); // State'i güncelle
+      setFilteredTodos(updatedTodos); // Filtered todos listesini güncelle
+  
+      console.log('Todo başarıyla silindi.');
+      toast.success("Todo başarıyla silindi.")
+      
+    } catch (error) {
+      console.error('Todo silinirken hata oluştu:', error);
+    }
+  };
+
+
+  const handleCreateTodo = async () => {
+    try {
+      const newTodo = {
+        id: Date.now().toString(), 
+        content: todoContent,
+      };
+
+      const result = await createTodo(newTodo);
+
+      const addedTodo = {
+        id: result.row_id, // Sheets'ten dönen gerçek row_id
+        content: todoContent,
+      };
+      const updatedTodos = [...todos, addedTodo];
+      setTodos(updatedTodos);
+      setFilteredTodos(updatedTodos);
+      setTodoContent(""); // Input'u temizle
+
+      toast.success("Todo başarıyla eklendi!");
+
+    } catch (error) {
+      toast.error("Todo eklenirken hata oluştu.");
+    }
+  };
+
+
+  const handleUpdate = async(updatedTodo)=> {
+    try {
+      await updateTodo(updatedTodo.id, updatedTodo);
+      const updatedTodos = todos.map((todo) =>
+        todo.id !== updatedTodo.id ? todo : updatedTodo
+      );
+      setTodos(updatedTodos);
+      setFilteredTodos(updatedTodos);
+    } catch (error) {
+      console.error('Todo güncellenirken hata oluştu:', error);
+    }
   }
 
-  const removeTodo = (todoId) => {
-    const updatedTodos = todos.filter((todo)=>todo.id!==todoId)
-    setTodos(updatedTodos)
-    setFilteredTodos(updatedTodos)
-  }
 
-  const updateTodo = (newTodo)=> {
-    const updatedTodos = todos.map((todo)=>{
-      if(todo.id !== newTodo.id){
-        return todo;
-      }
-      return newTodo;
-    })
 
-    setTodos([...updatedTodos])
-    setFilteredTodos(updatedTodos)
-    
-  }
 
   const onSearch = (e) => {
     const filteredTodos = todos.filter( (todo) => {
@@ -65,11 +116,10 @@ function App() {
   };
 
 
-
   return (
    <div className='App'>
     <div>
-      <TodoCreate onCreateTodo={createTodo}></TodoCreate>
+      <TodoCreate onCreateTodo={handleCreateTodo} setTodoContent={setTodoContent} todoContent={todoContent}></TodoCreate>
 
       <Search
       placeholder="Todo ara..."
@@ -81,7 +131,8 @@ function App() {
       className = "filter"      
     />
 
-      <TodoList todos={filteredTodos} onRemoveTodo={removeTodo} onUpdateTodo={updateTodo}></TodoList>
+      <TodoList todos={filteredTodos} onRemoveTodo={removeTodo} onUpdateTodo={handleUpdate}></TodoList>
+      <ToastContainer autoClose={2000}></ToastContainer>
     </div>
 
    </div>

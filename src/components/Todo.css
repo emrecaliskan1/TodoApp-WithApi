@@ -14,8 +14,7 @@
     background: #5a5a7d; /* Biraz daha açık mor */
     box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.4);
     transform: translateY(-2px); /* Hafif yukarı kalkma efekti */
-  }
-
+}
 
 .todo-content{
     flex: 1;
@@ -24,8 +23,6 @@
     word-wrap: break-word;
 }
 
-
-
 .todo-input,
 .todo-create-button {
     width: 100%;
@@ -33,7 +30,6 @@
     box-sizing: border-box; 
     margin-bottom: 20px;
 }
-
 
 .todo-input {
     width: 500px;
@@ -46,17 +42,12 @@
     outline: none;
     transition: all 0.3s ease-in-out;
     margin-right: 5px;
-  }
+}
   
 .todo-input-item{
     width: 400px;
     margin-right: 5px;
 }
-
-/* .todo-input:focus {
-    border-color: #8a75ff;
-    box-shadow: 0px 0px 8px rgba(138, 117, 255, 0.6);
-  } */
 
 .todo-create-button {
     margin-top: 10px;
@@ -69,14 +60,12 @@
     font-weight: bold;
     cursor: pointer;
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
-    
 }
 
 .todo-create-button:hover {
     background-color: #5a4ec7; 
     transform: scale(1.05);
 }
-
 
 .todo-actions{
     display: flex;
@@ -105,12 +94,10 @@
     color: #046719;
 }
 
-
 .ant-btn {
     min-width: auto;
     padding: 4px 8px;
 }
-
 
 .ant-input{
     background-color: #5a5a7d;

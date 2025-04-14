@@ -1,16 +1,36 @@
 import axios from 'axios'
 
-const API_URL = "https://v1.nocodeapi.com/emrecaliskan1/google_sheets/byLERWAtqbZomboi"
+const API_URL = "https://v1.nocodeapi.com/emrecaliskan1/google_sheets/HuNGWxpnnfYYLDyq"
 
-export const fetchTodos = async() => {
+export const fetchTodos = async() => {  
     try {
-        const response = await axios.get(`${API_URL}?tabId=todo-app`)
-        return response.data
-    } catch (error) {
-        console.log('Todolar fetchlenirken hata oluştu.')
-        throw error;
-    }
+        const response = await axios.get(`${API_URL}?tabId=todo`);
+        console.log("API'den gelen tüm response:", response.data);
+    
+        const rows = response.data.data;
+        console.log("Sheet verisi:", rows);
+    
+        const todos = rows.map(row => ({
+          id: row.row_id,
+          content: row.content
+        }));
+    
+        return todos;
+      } catch (error) {
+        console.error('fetchTodos hatası:', error);
+        return [];
+      }
 }
+
+export const deleteTodo = async (rowId) => {
+    try {
+      const response = await axios.delete(`${API_URL}?tabId=todo&row_id=${rowId}`);
+      return response.data;
+    } catch (error) {
+      console.log("Todo silinirken hata oluştu.");
+      throw error;
+    }
+  };
 
 export const fetchTodoById = async(id) => {
     try {
@@ -22,23 +42,32 @@ export const fetchTodoById = async(id) => {
     }
 }
 
+export const createTodo = async (newTodo) => {
+    try {
+      const response = await axios.post(`${API_URL}?tabId=todo`, [
+        [newTodo.id, newTodo.content] // 2 sütun varsa (id ve content)
+      ]);
+    
+  
+  
+      console.log("Todo Sheets'e kaydedildi:", response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Todo eklenirken hata oluştu:", error);
+      throw error;
+    }
+  };
+
 export const updateTodo = async(id,updatedTodo)=>{
     try {
-        const response = await axios.put(`${API_URL}?tabId=todo-app&id=${id}`,updatedTodo)
-        return response.data
-    } catch (error) {
-        console.log("Todo güncellenirken hata oluştu.")
-        throw error
-    }
+        const response = await axios.put(`${API_URL}?tabId=todo`, {
+          row: row, // Sheet'teki satır numarası (1-based index)
+          data: [updatedTodo.id.toString(), updatedTodo.content]
+        });
+        return response.data;
+      } catch (error) {
+        console.error("Todo güncellenirken hata oluştu:", error);
+        throw error;
+      }
 }
 
-
-export const deleteTodo = async(id)=>{
-    try {
-        const response = await axios.delete(`${API_URL}?tabId=todo-app&row_id=${id}`)
-        return response.data
-    } catch (error) {
-        console.log("Todo silinirken hata oluştu.")
-        throw error        
-    }
-}

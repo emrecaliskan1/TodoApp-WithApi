@@ -14,8 +14,6 @@
  
 }
 
-
-
 .filter{
   width: 500px;
   box-sizing: border-box;
@@ -28,10 +26,7 @@
   padding: 10px;
   margin: 10px 0;
   max-width: 500px;
-
 }
-
-
 
 html, body {
   width: 100%;
@@ -61,7 +56,6 @@ html, body {
   flex-direction: column;
   width: 100%;
 }
-
 
 :where(.css-dev-only-do-not-override-1261szd).ant-input-affix-wrapper {
   position: relative;
