@@ -21,6 +21,7 @@ function App() {
   useEffect(() => {
     const getTodos = async () => {
       const data = await fetchTodos();
+      console.log("Sheetsten gelen data:" , data)
       setTodos(data);
       setFilteredTodos(data);
     };
@@ -56,6 +57,7 @@ function App() {
       const newTodo = {
         id: Math.floor(Math.random()*100),
         content: todoContent,
+        detail:"",
       };
 
       const result = await createTodo(newTodo);
@@ -63,6 +65,7 @@ function App() {
       const addedTodo = {
         id: result.row_id, 
         content: todoContent,
+        row_id:result.row_id,
       };
       const updatedTodos = [...todos, addedTodo];
       setTodos(updatedTodos);
@@ -95,7 +98,7 @@ function App() {
       await updateTodo(row_id, updatedTodo);
   
       const updatedTodos = todos.map((todo) =>
-        todo.id === updatedTodo.id ? updatedTodo : todo
+        todo.id === updatedTodo.id ? {...updatedTodo,row_id : todo.row_id} : todo
       );
       setTodos(updatedTodos);
       setFilteredTodos(updatedTodos);

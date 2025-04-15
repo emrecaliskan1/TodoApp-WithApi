@@ -15,7 +15,7 @@
 }
 
 .filter{
-  width: 500px;
+  width: 550px;
   box-sizing: border-box;
   font-weight: bold;
 }
@@ -25,7 +25,7 @@
 .todo-create-button {
   padding: 10px;
   margin: 10px 0;
-  max-width: 500px;
+  max-width: 550px;
 }
 
 html, body {
@@ -40,7 +40,7 @@ html, body {
 }
 
 .main {
-  width: 500px;
+  width: 550px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,9 +59,8 @@ html, body {
 
 :where(.css-dev-only-do-not-override-1261szd).ant-input-affix-wrapper {
   position: relative;
-  display: inline-flex
-;
-  width: 500px;
+  display: inline-flex;
+  width: 575px;
   min-width: 0;
   padding: 4px 11px;
   color: rgba(0, 0, 0, 0.88);

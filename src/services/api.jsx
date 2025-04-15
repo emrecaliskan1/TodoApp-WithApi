@@ -11,7 +11,8 @@ export const fetchTodos = async() => {
         const todos = rows.map(row => ({
           id: row.row_id,
           content: row.content,
-          row_id:row.row_id
+          row_id:row.row_id,
+          detail:row.detail
         }));
     
         return todos;
