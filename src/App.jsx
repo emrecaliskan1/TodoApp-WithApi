@@ -54,7 +54,7 @@ function App() {
   const handleCreateTodo = async () => {
     try {
       const newTodo = {
-        id: Date.now().toString(), 
+        id: Math.floor(Math.random()*100),
         content: todoContent,
       };
 

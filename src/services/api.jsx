@@ -55,12 +55,13 @@ export const createTodo = async (newTodo) => {
 };
 
 
-export const updateTodo = async (row_id, updatedTodo) => {
+export const updateTodo = async (row_id,updatedTodo) => {
     try {
       const response = await axios.put(`${API_URL}?tabId=todo`, {
         row_id: row_id,  
-        id: updatedTodo.id,  
-        content: updatedTodo.content  
+        id: updateTodo.id,  
+        content: updatedTodo.content ,
+        detail:updatedTodo.detail
       });
       return response.data;
 

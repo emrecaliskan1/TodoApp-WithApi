@@ -46,7 +46,7 @@
 }
   
 .todo-input-item{
-    width: 400px;
+    width: 300px;
     margin-right: 5px;
 }
 
@@ -84,11 +84,11 @@
 }
 
 .todo-icon-remove{
-    color: #880808;
+    color: #d43535;
 }
 
 .todo-icon-edit{
-    color: #b6a725; 
+    color: #f2d200; 
 }
 
 .todo-icon-check{
