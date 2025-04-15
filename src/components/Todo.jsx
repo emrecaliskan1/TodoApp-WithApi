@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { IoIosRemoveCircle } from "react-icons/io";
 import { FaEdit, FaCheck } from "react-icons/fa";
-import { Input, Button, Modal } from 'antd';
+import { Input, Button, Modal,Drawer } from 'antd';
 import './Todo.css'
 
 
@@ -10,7 +10,7 @@ const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
 
     const [editTable, setEditTable] = useState(false);
     const [newTodo, setNewTodo] = useState(content);
-
+    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [detail, setDetail] = useState(todo.detail || '');
 
@@ -21,16 +21,17 @@ const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
     const updateTodo = () => {
         const request = {
             id: id,
-            content: newTodo
+            content: newTodo,
+            detail:detail
         };
         onUpdateTodo(request);
         setEditTable(false);
     };
 
     const handleSaveDetail = () => {
-        const updatedTodo = { ...todo, detail }; // Detay bilgisini todo'ya ekle
-        onUpdateTodo(updatedTodo); // Güncelleme fonksiyonunu çağır
-        setIsModalOpen(false); // Modal'ı kapat
+        const updatedTodo = { ...todo, detail }; 
+        onUpdateTodo(updatedTodo);
+        setIsModalOpen(false); 
       };
 
     return (
@@ -64,8 +65,15 @@ const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
                 <Button 
                 type='default'
                 className='todo-icon-detail'
-                onClick={()=>setIsModalOpen(true)}>Detay Ekle</Button>
+                onClick={()=>setIsModalOpen(true)}>
+                    Detay Ekle</Button>
+                <Button
+                type='default'
+                className='todo-icon-view'
+                onClick={()=>setIsDrawerOpen(true)}>
+                    Detayı Gör</Button>
             </div>
+            
             <Modal
             title="Detay Ekle"
             open={isModalOpen}
@@ -77,6 +85,15 @@ const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
             value={detail}
             onChange={(e)=>setDetail(e.target.value)}></Input>
             </Modal>
+
+            <Drawer
+            title="Todo Detayı"
+            placement='right'
+            onClose={()=>setIsDrawerOpen(false)}
+            open={isDrawerOpen}>
+                <p><strong>İçerik:</strong> {content}</p>
+                <p><strong>Detay:</strong> {detail}</p>
+            </Drawer>
         </div>
     );
 };

@@ -88,6 +88,7 @@ function App() {
       const row_id = todoToUpdate.row_id; 
       if (!row_id) {
         toast.error("Todo'nun satır numarası bulunamadı.");
+        console.log(error)
         return;
       }
       
