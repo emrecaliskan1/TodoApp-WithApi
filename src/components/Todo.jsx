@@ -7,11 +7,12 @@ import TodoDetails from './TodoDetails';
 
 
 const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
-    const { id, content } = todo;
+    const { id, content , isCompleted:initialCompleted = false} = todo;
 
     const [editTable, setEditTable] = useState(false);
     const [newTodo, setNewTodo] = useState(content);
     const [detail, setDetail] = useState(todo.detail || '');
+    const [isCompleted, setIsCompleted] = useState(false); 
 
     const removeTodo = () => {
         onRemoveTodo(id);
@@ -21,17 +22,30 @@ const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
         const request = {
             id: id,
             content: newTodo,
-            detail:detail
+            detail:detail,
+            isCompleted : isCompleted
         };
         onUpdateTodo(request);
         setEditTable(false);
     };
 
+    const toggleComplete =async () => {
+        try {
+            const updatedTodo = {
+                ...todo,
+                isCompleted:true
+            }
+            await onUpdateTodo(updatedTodo)
+            setIsCompleted(!isCompleted); 
+        } catch (error) {
+            console.log("Tamamlandı güncellenirken hata oluştu...")
+        }
+    };
    
 
     return (
         <div className='todo-item'>
-            <div className='todo-content'>
+            <div className={`todo-content ${isCompleted ? 'completed' : ''}`}>
                 {
                     editTable ? 
                     <Input 
@@ -57,8 +71,16 @@ const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
                         <FaEdit />
                     </Button>
                 }
+                
             </div>
-               <TodoDetails todo={todo} onUpdateTodo={onUpdateTodo} />
+               <TodoDetails todo={todo} onUpdateTodo={onUpdateTodo} isCompleted={isCompleted} />
+               <Button
+                type='dashed'
+                className='todo-icon-complete'
+                onClick={toggleComplete}
+                disabled={isCompleted}>
+                    Tamamlandı
+                </Button>
         </div>
     );
 };

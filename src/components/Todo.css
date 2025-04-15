@@ -120,6 +120,16 @@
     background-color: #45455c
 }
 
+.todo-icon-complete {
+    background-color: #228337;
+    font-size: xx-small;
+}
+
+.todo-content.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
 :where(.css-dev-only-do-not-override-1261szd).ant-btn-variant-solid {
     color:#046719;
     background: #fdfdfd;

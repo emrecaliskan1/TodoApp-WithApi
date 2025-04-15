@@ -12,7 +12,8 @@ export const fetchTodos = async() => {
           id: row.row_id,
           content: row.content,
           row_id:row.row_id,
-          detail:row.detail
+          detail:row.detail,
+          isCompleted: row.isCompleted
         }));
     
         return todos;
@@ -32,20 +33,10 @@ export const deleteTodo = async (rowId) => {
     }
 };
 
-export const fetchTodoById = async(id) => {
-    try {
-        const todos = await fetchTodos()
-        return todos.find(todo=>todo.id===id)
-    } catch (error) {
-        console.log("Todo id'ye göre getirilirken hata oluştu.")
-        throw error;
-    }
-}
-
 export const createTodo = async (newTodo) => {
     try {
       const response = await axios.post(`${API_URL}?tabId=todo`, [
-        [newTodo.id, newTodo.content] 
+        [newTodo.id, newTodo.content,newTodo.detail,newTodo.isCompleted] 
       ]);
     
       return response.data;
@@ -62,7 +53,8 @@ export const updateTodo = async (row_id,updatedTodo) => {
         row_id: row_id,  
         id: updateTodo.id,  
         content: updatedTodo.content ,
-        detail:updatedTodo.detail
+        detail:updatedTodo.detail,
+        isCompleted:updatedTodo.isCompleted
       });
       return response.data;
 

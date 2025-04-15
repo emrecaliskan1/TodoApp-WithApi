@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Input, Modal, Drawer, Button } from 'antd';
 import './TodoDetails.css'
 
-const TodoDetails = ({ todo, onUpdateTodo }) => {
+const TodoDetails = ({ todo, onUpdateTodo,isCompleted }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [detail, setDetail] = useState(todo.detail || ''); 
@@ -56,6 +56,7 @@ const TodoDetails = ({ todo, onUpdateTodo }) => {
       >
         <p><strong>İçerik:</strong> {todo.content}</p>
         <p><strong>Detay:</strong> {todo.detail ? todo.detail : 'Detay yok'}</p>
+        <p><strong>Tamamlanma Durumu: </strong>{isCompleted ? 'Tamamlandı' : 'Tamamlanmadı'} </p>
       </Drawer>
     </>
   );

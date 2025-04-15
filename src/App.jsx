@@ -17,6 +17,7 @@ function App() {
   const [todos,setTodos] = useState([])
   const [todoContent, setTodoContent] = useState("");
   const [filteredTodos,setFilteredTodos] = useState([])
+  const [isCompleted,setIsCompleted] = useState(false)
 
   useEffect(() => {
     const getTodos = async () => {
@@ -55,6 +56,7 @@ function App() {
         id: Math.floor(Math.random()*100),
         content: todoContent,
         detail:"",
+        isCompleted : false,
       };
 
       const result = await createTodo(newTodo);
@@ -63,11 +65,13 @@ function App() {
         id: result.row_id, 
         content: todoContent,
         row_id:result.row_id,
+        isCompleted:false
       };
       const updatedTodos = [...todos, addedTodo];
       setTodos(updatedTodos);
       setFilteredTodos(updatedTodos);
       setTodoContent("");
+      setIsCompleted(false)
 
       toast.success("Todo başarıyla eklendi!");
 
