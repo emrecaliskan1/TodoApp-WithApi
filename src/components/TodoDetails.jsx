@@ -37,6 +37,8 @@ const TodoDetails = ({ todo, onUpdateTodo }) => {
         open={isModalOpen}
         onOk={handleSaveDetail}
         onCancel={() => setIsModalOpen(false)}
+        okText="Kaydet"
+        cancelText="İptal"
       >
         <Input
           placeholder="Detay girin..."

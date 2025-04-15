@@ -45,7 +45,7 @@ export const fetchTodoById = async(id) => {
 export const createTodo = async (newTodo) => {
     try {
       const response = await axios.post(`${API_URL}?tabId=todo`, [
-        [newTodo.id, newTodo.content] // 2 sütun varsa (id ve content)
+        [newTodo.id, newTodo.content] 
       ]);
     
       return response.data;

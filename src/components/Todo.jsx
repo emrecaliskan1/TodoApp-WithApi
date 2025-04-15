@@ -11,7 +11,6 @@ const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
 
     const [editTable, setEditTable] = useState(false);
     const [newTodo, setNewTodo] = useState(content);
-   
     const [detail, setDetail] = useState(todo.detail || '');
 
     const removeTodo = () => {

@@ -21,7 +21,6 @@ function App() {
   useEffect(() => {
     const getTodos = async () => {
       const data = await fetchTodos();
-      console.log("Sheetsten gelen data:" , data)
       setTodos(data);
       setFilteredTodos(data);
     };
@@ -29,9 +28,6 @@ function App() {
     toast.success("TodoList başarıyla veritabanından getirildi...")
   }, []);
   
-  useEffect(() => {
-    console.log("filteredTodos:", filteredTodos);
-  }, [filteredTodos]);
 
   //Todo SİLME
   const removeTodo = async (id) => {
@@ -47,6 +43,7 @@ function App() {
       
     } catch (error) {
       console.error('Todo silinirken hata oluştu:', error);
+      toast.error("Todo silinirken hata oluştu.")
     }
   };
 
