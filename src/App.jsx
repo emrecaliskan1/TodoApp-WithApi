@@ -6,7 +6,6 @@ import Search from 'antd/es/transfer/search'
 import { ToastContainer, toast } from 'react-toastify';
 import {
   fetchTodos,
-  fetchTodoById,
   updateTodo,
   deleteTodo,
   createTodo
@@ -22,7 +21,6 @@ function App() {
   useEffect(() => {
     const getTodos = async () => {
       const data = await fetchTodos();
-      console.log("API'den gelen data:", data); // burada kontrol et
       setTodos(data);
       setFilteredTodos(data);
     };
@@ -34,17 +32,16 @@ function App() {
     console.log("filteredTodos:", filteredTodos);
   }, [filteredTodos]);
 
+  //Todo SİLME
   const removeTodo = async (id) => {
     try {
-      // Silme işlemini API'ye gönder
+
       await deleteTodo(id);
   
-      // Silinen todo'yu todos listesinden çıkararak güncelle
       const updatedTodos = todos.filter((todo)=>todo.id !== id)
-      setTodos(updatedTodos); // State'i güncelle
-      setFilteredTodos(updatedTodos); // Filtered todos listesini güncelle
+      setTodos(updatedTodos); 
+      setFilteredTodos(updatedTodos);
   
-      console.log('Todo başarıyla silindi.');
       toast.success("Todo başarıyla silindi.")
       
     } catch (error) {
@@ -53,6 +50,7 @@ function App() {
   };
 
 
+  //TODO YARATMA
   const handleCreateTodo = async () => {
     try {
       const newTodo = {
@@ -63,13 +61,13 @@ function App() {
       const result = await createTodo(newTodo);
 
       const addedTodo = {
-        id: result.row_id, // Sheets'ten dönen gerçek row_id
+        id: result.row_id, 
         content: todoContent,
       };
       const updatedTodos = [...todos, addedTodo];
       setTodos(updatedTodos);
       setFilteredTodos(updatedTodos);
-      setTodoContent(""); // Input'u temizle
+      setTodoContent("");
 
       toast.success("Todo başarıyla eklendi!");
 
@@ -78,23 +76,36 @@ function App() {
     }
   };
 
-
-  const handleUpdate = async(updatedTodo)=> {
+  //TODO GÜNCELLEME
+  const handleUpdate = async (updatedTodo) => {
     try {
-      await updateTodo(updatedTodo.id, updatedTodo);
+      const todoToUpdate = todos.find((todo) => todo.id === updatedTodo.id);
+
+      if (!todoToUpdate) {
+        toast.error("Güncellenecek todo bulunamadı.");
+        return;
+      }
+      const row_id = todoToUpdate.row_id; 
+      if (!row_id) {
+        toast.error("Todo'nun satır numarası bulunamadı.");
+        return;
+      }
+      
+      await updateTodo(row_id, updatedTodo);
+  
       const updatedTodos = todos.map((todo) =>
-        todo.id !== updatedTodo.id ? todo : updatedTodo
+        todo.id === updatedTodo.id ? updatedTodo : todo
       );
       setTodos(updatedTodos);
       setFilteredTodos(updatedTodos);
+      toast.success("Todo başarıyla güncellendi!");
     } catch (error) {
-      console.error('Todo güncellenirken hata oluştu:', error);
+      toast.error("Todo güncellenemedi.");
     }
-  }
+  };
 
 
-
-
+  //TODO ARAMA
   const onSearch = (e) => {
     const filteredTodos = todos.filter( (todo) => {
       todo.content.toLowerCase().includes(e.toLowerCase())
@@ -102,13 +113,13 @@ function App() {
     setFilteredTodos(filteredTodos)
   }
 
+  //TODO FİLTRELEME
   const onChange = (e) => {
     const value = e.target.value.toLowerCase();
     if (!value) {
       setFilteredTodos(todos);
       return;
     }
-  
     const filtered = todos.filter((todo) =>
       todo.content.toLowerCase().includes(value)
     );

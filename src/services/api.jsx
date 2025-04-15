@@ -1,18 +1,17 @@
 import axios from 'axios'
 
-const API_URL = "https://v1.nocodeapi.com/emrecaliskan1/google_sheets/HuNGWxpnnfYYLDyq"
+const API_URL = "https://v1.nocodeapi.com/emrecaliskan2/google_sheets/heXwOgUlLJVBmSht"
 
 export const fetchTodos = async() => {  
     try {
         const response = await axios.get(`${API_URL}?tabId=todo`);
-        console.log("API'den gelen tüm response:", response.data);
     
         const rows = response.data.data;
-        console.log("Sheet verisi:", rows);
-    
+
         const todos = rows.map(row => ({
           id: row.row_id,
-          content: row.content
+          content: row.content,
+          row_id:row.row_id
         }));
     
         return todos;
@@ -30,7 +29,7 @@ export const deleteTodo = async (rowId) => {
       console.log("Todo silinirken hata oluştu.");
       throw error;
     }
-  };
+};
 
 export const fetchTodoById = async(id) => {
     try {
@@ -48,26 +47,24 @@ export const createTodo = async (newTodo) => {
         [newTodo.id, newTodo.content] // 2 sütun varsa (id ve content)
       ]);
     
-  
-  
-      console.log("Todo Sheets'e kaydedildi:", response.data);
       return response.data;
     } catch (error) {
       console.error("Todo eklenirken hata oluştu:", error);
       throw error;
     }
-  };
+};
 
-export const updateTodo = async(id,updatedTodo)=>{
+
+export const updateTodo = async (row_id, updatedTodo) => {
     try {
-        const response = await axios.put(`${API_URL}?tabId=todo`, {
-          row: row, // Sheet'teki satır numarası (1-based index)
-          data: [updatedTodo.id.toString(), updatedTodo.content]
-        });
-        return response.data;
-      } catch (error) {
-        console.error("Todo güncellenirken hata oluştu:", error);
-        throw error;
-      }
-}
+      const response = await axios.put(`${API_URL}?tabId=todo`, {
+        row_id: row_id,  
+        id: updatedTodo.id,  
+        content: updatedTodo.content  
+      });
+      return response.data;
 
+    } catch (error) {
+      throw error;
+    }
+};
