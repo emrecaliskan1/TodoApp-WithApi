@@ -8,6 +8,7 @@ const TodoDetails = ({ todo, onUpdateTodo,isCompleted }) => {
   const [detail, setDetail] = useState(todo.detail || ''); 
   
 
+  //Detayları Kaydet
   const handleSaveDetail = () => {
     const updatedTodo = { ...todo, detail }; 
     onUpdateTodo(updatedTodo); 

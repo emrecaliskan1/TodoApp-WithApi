@@ -14,10 +14,12 @@ const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
     const [detail, setDetail] = useState(todo.detail || '');
     const [isCompleted, setIsCompleted] = useState(initialCompleted); 
 
+    //Sil tuşu
     const removeTodo = () => {
         onRemoveTodo(id);
     };
 
+    //Edit tuşu
     const updateTodo = () => {
         const request = {
             id: id,
@@ -29,6 +31,7 @@ const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
         setEditTable(false);
     };
 
+    //Tamamlandı tuşu 
     const toggleComplete =async () => {
         try {
             const updatedTodo = {

@@ -19,6 +19,7 @@ function App() {
   const [filteredTodos,setFilteredTodos] = useState([])
   const [isCompleted,setIsCompleted] = useState(false)
 
+  //USEEFFECT
   useEffect(() => {
     const getTodos = async () => {
       const data = await fetchTodos();
