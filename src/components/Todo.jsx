@@ -12,7 +12,7 @@ const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
     const [editTable, setEditTable] = useState(false);
     const [newTodo, setNewTodo] = useState(content);
     const [detail, setDetail] = useState(todo.detail || '');
-    const [isCompleted, setIsCompleted] = useState(false); 
+    const [isCompleted, setIsCompleted] = useState(initialCompleted); 
 
     const removeTodo = () => {
         onRemoveTodo(id);
@@ -76,7 +76,7 @@ const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
                <TodoDetails todo={todo} onUpdateTodo={onUpdateTodo} isCompleted={isCompleted} />
                <Button
                 type='dashed'
-                className='todo-icon-complete'
+                className={`todo-icon-complete ${isCompleted ? 'disabled' : ''}`}
                 onClick={toggleComplete}
                 disabled={isCompleted}>
                     Tamamlandı

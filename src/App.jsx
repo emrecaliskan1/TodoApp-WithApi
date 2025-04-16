@@ -71,7 +71,7 @@ function App() {
       setTodos(updatedTodos);
       setFilteredTodos(updatedTodos);
       setTodoContent("");
-      setIsCompleted(false)
+      setIsCompleted(isCompleted)
 
       toast.success("Todo başarıyla eklendi!");
 
