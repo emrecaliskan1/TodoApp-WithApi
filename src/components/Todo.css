@@ -72,7 +72,8 @@
 }
 
 .todo-create-button:hover {
-    background-color: #5a4ec7; 
+    /* background-color: #5a4ec7;  */
+
     transform: scale(1.05);
 }
 

@@ -44,7 +44,6 @@ function App() {
       toast.success("Todo başarıyla silindi.")
       
     } catch (error) {
-      console.error('Todo silinirken hata oluştu:', error);
       toast.error("Todo silinirken hata oluştu.")
     }
   };
@@ -52,9 +51,10 @@ function App() {
 
   //TODO YARATMA
   const handleCreateTodo = async () => {
+    const newId = todos.length > 0 ? Math.max(...todos.map(todo => todo.id)) + 1 : 1;
     try {
       const newTodo = {
-        id: Math.floor(Math.random()*100),
+        id:newId,
         content: todoContent,
         detail:"",
         isCompleted : false,
@@ -68,6 +68,7 @@ function App() {
         row_id:result.row_id,
         isCompleted:false
       };
+      
       const updatedTodos = [...todos, addedTodo];
       setTodos(updatedTodos);
       setFilteredTodos(updatedTodos);

@@ -56,8 +56,7 @@ export const createTodo = async (newTodo) => {
 export const updateTodo = async (row_id,updatedTodo) => {
     try {
       const response = await axios.put(`${API_URL}?tabId=todo`, {
-        row_id: row_id,  
-        id: updatedTodo.id,  
+        row_id: row_id,   
         content: updatedTodo.content ,
         detail:updatedTodo.detail,
         isCompleted:updatedTodo.isCompleted

@@ -7,8 +7,8 @@ import TodoDetails from './TodoDetails';
 
 
 const Todo = ({ todo, onRemoveTodo, onUpdateTodo }) => {
-    const { id, content , isCompleted:initialCompleted = false} = todo;
 
+    const { id, content , isCompleted:initialCompleted = false} = todo;
     const [editTable, setEditTable] = useState(false);
     const [newTodo, setNewTodo] = useState(content);
     const [detail, setDetail] = useState(todo.detail || '');
