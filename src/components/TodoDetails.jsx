@@ -57,6 +57,7 @@ const TodoDetails = ({ todo, onUpdateTodo,isCompleted }) => {
       >
         <p><strong>İçerik:</strong> {todo.content}</p>
         <p><strong>Detay:</strong> {todo.detail ? todo.detail : 'Detay yok'}</p>
+        <p><strong>Tarih: </strong>{todo.date && todo.date.trim() !== "" ? todo.date : 'Belirtilmemiş'}</p>
         <p><strong>Tamamlanma Durumu: </strong>{isCompleted ? 'Tamamlandı' : 'Tamamlanmadı'} </p>
       </Drawer>
     </>

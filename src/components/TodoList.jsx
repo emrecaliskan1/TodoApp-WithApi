@@ -6,7 +6,7 @@ function TodoList({todos,onRemoveTodo,onUpdateTodo}) {
     <div style={{width:'100%', marginTop:'50px'}}>
         {
             todos && todos.filter((todo)=>todo&&todo.id!==undefined).map((todo)=>(
-                <Todo key={todo.id} todo={todo}
+                <Todo key={Math.random()*100} todo={todo}
                 onRemoveTodo = {onRemoveTodo} onUpdateTodo={onUpdateTodo}/>
             ))
         }
@@ -14,4 +14,4 @@ function TodoList({todos,onRemoveTodo,onUpdateTodo}) {
   )
 }
 
-export default TodoList
+export default TodoList 

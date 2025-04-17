@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const API_URL = "https://v1.nocodeapi.com/emrecaliskan3/google_sheets/ssMtuaRETkWrmVFt"
+const API_URL = "https://v1.nocodeapi.com/zenvero/google_sheets/kSIqVTzpLrTGHUdv"
 
 //FETCH
 export const fetchTodos = async() => {  
@@ -10,14 +10,16 @@ export const fetchTodos = async() => {
         const rows = response.data.data;
 
         const todos = rows.map(row => ({
+          row_id:row.row_id,
           id: row.row_id,
           content: row.content,
-          row_id:row.row_id,
           detail:row.detail,
-          isCompleted: row.isCompleted === true || row.isCompleted === "TRUE"
+          isCompleted: row.isCompleted === true || row.isCompleted === "TRUE",
+          date:row.date
         }));
-    
-        return todos;
+        
+        const maxId = todos.length > 0 ? Math.max(...todos.map(todo => todo.id)) : 0;
+        return { todos, maxId }
 
       } catch (error) {
         console.error('fetchTodos hatası:', error);
@@ -41,7 +43,7 @@ export const deleteTodo = async (rowId) => {
 export const createTodo = async (newTodo) => {
     try {
       const response = await axios.post(`${API_URL}?tabId=todo`, [
-        [newTodo.id, newTodo.content,newTodo.detail,newTodo.isCompleted] 
+        [newTodo.id, newTodo.content,newTodo.detail,newTodo.isCompleted,newTodo.date] 
       ]);
     
       return response.data;
@@ -59,7 +61,8 @@ export const updateTodo = async (row_id,updatedTodo) => {
         row_id: row_id,   
         content: updatedTodo.content ,
         detail:updatedTodo.detail,
-        isCompleted:updatedTodo.isCompleted
+        isCompleted:updatedTodo.isCompleted,
+        date: updatedTodo.date
       });
       return response.data;
 

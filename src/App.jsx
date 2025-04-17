@@ -10,6 +10,7 @@ import {
   deleteTodo,
   createTodo
 } from './services/api';
+import Navbar from './components/Navbar'
 
 
 function App() {
@@ -18,13 +19,16 @@ function App() {
   const [todoContent, setTodoContent] = useState("");
   const [filteredTodos,setFilteredTodos] = useState([])
   const [isCompleted,setIsCompleted] = useState(false)
+  const [selectedDate,setSelectedDate] = useState("")
+  const [maxId, setMaxId] = useState(0);
 
   //USEEFFECT
   useEffect(() => {
     const getTodos = async () => {
-      const data = await fetchTodos();
-      setTodos(data);
-      setFilteredTodos(data);
+      const { todos, maxId } = await fetchTodos();
+      setTodos(todos);
+      setFilteredTodos(todos);
+      setMaxId(maxId)
     };
     getTodos();
     toast.success("TodoList başarıyla veritabanından getirildi...")
@@ -36,13 +40,12 @@ function App() {
     try {
 
       await deleteTodo(id);
-  
+      //todos array'i
       const updatedTodos = todos.filter((todo)=>todo.id !== id)
       setTodos(updatedTodos); 
       setFilteredTodos(updatedTodos);
   
       toast.success("Todo başarıyla silindi.")
-      
     } catch (error) {
       toast.error("Todo silinirken hata oluştu.")
     }
@@ -51,32 +54,40 @@ function App() {
 
   //TODO YARATMA
   const handleCreateTodo = async () => {
-    const newId = todos.length > 0 ? Math.max(...todos.map(todo => todo.id)) + 1 : 1;
+    // const newId = todos.length > 0 ? Math.max(...todos.map(todo => todo.id)) + 1 : 1;
+    const newId = maxId +1
+    const formattedDate = selectedDate ? new Date(selectedDate).toLocaleDateString("tr-TR") : "";
+
     try {
       const newTodo = {
         id:newId,
         content: todoContent,
         detail:"",
         isCompleted : false,
+        date:formattedDate
       };
 
       const result = await createTodo(newTodo);
 
+      //eklenen todo objesi
       const addedTodo = {
         id: result.row_id, 
         content: todoContent,
         row_id:result.row_id,
-        isCompleted:false
+        isCompleted:false,
+        date:formattedDate
       };
-      
+
+     
+      //güncel todos array'i
       const updatedTodos = [...todos, addedTodo];
+      setMaxId(newId)
       setTodos(updatedTodos);
       setFilteredTodos(updatedTodos);
       setTodoContent("");
       setIsCompleted(isCompleted)
 
       toast.success("Todo başarıyla eklendi!");
-
     } catch (error) {
       toast.error("Todo eklenirken hata oluştu.");
     }
@@ -94,7 +105,6 @@ function App() {
       const row_id = todoToUpdate.row_id; 
       if (!row_id) {
         toast.error("Todo'nun satır numarası bulunamadı.");
-        console.log(error)
         return;
       }
       
@@ -135,9 +145,13 @@ function App() {
 
 
   return (
+    <>
+   
    <div className='App'>
-    <div>
-      <TodoCreate onCreateTodo={handleCreateTodo} setTodoContent={setTodoContent} todoContent={todoContent}></TodoCreate>
+   <Navbar />
+   <br />
+    <div className='content-container'>
+      <TodoCreate onCreateTodo={handleCreateTodo} setTodoContent={setTodoContent} todoContent={todoContent} setSelectedDate={setSelectedDate}></TodoCreate>
 
       <Search
       placeholder="Todo ara..."
@@ -150,10 +164,11 @@ function App() {
     />
 
       <TodoList todos={filteredTodos} onRemoveTodo={removeTodo} onUpdateTodo={handleUpdate}></TodoList>
-      <ToastContainer autoClose={2000}></ToastContainer>
+     
     </div>
-
+    <ToastContainer autoClose={2000}></ToastContainer>
    </div>
+   </>
   )
 }
 

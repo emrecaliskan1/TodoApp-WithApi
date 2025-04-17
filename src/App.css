@@ -6,7 +6,15 @@
   align-items: center;
   background: #2c2c38;
   margin-top: 50px;
+  box-sizing: border-box;
 }
+
+.content-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
 
 * {
   margin: 0;
@@ -37,6 +45,7 @@ html, body {
   align-items: center;
   font-family: 'Arial', sans-serif;
   color: #e0e0e0;
+  overflow-y: scroll
 }
 
 .main {
@@ -69,3 +78,14 @@ html, body {
   border-radius: 6px;
   transition: all 0.2s;
 }
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #2c2c38;
+  font-family: sans-serif;
+  overflow-y: scroll;
+}
+
+
+
