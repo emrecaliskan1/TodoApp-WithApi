@@ -11,6 +11,7 @@ import {
   createTodo
 } from './services/api';
 import Navbar from './components/Navbar'
+import { Button } from 'antd'
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
   const [isCompleted,setIsCompleted] = useState(false)
   const [selectedDate,setSelectedDate] = useState("")
   const [maxId, setMaxId] = useState(0);
+  const [showCompleted, setShowCompleted] = useState(false);
 
   //USEEFFECT
   useEffect(() => {
@@ -153,17 +155,26 @@ function App() {
     <div className='content-container'>
       <TodoCreate onCreateTodo={handleCreateTodo} setTodoContent={setTodoContent} todoContent={todoContent} setSelectedDate={setSelectedDate}></TodoCreate>
 
+    <div className='searchandbutton'>
       <Search
-      placeholder="Todo ara..."
-      enterButton="Search"
-      size="large"
-      onSearch={onSearch}
-      onChange={onChange}
-      allowclear
-      className = "filter"      
-    />
+        placeholder="Todo ara..."
+        enterButton="Search"
+        size="large"
+        onSearch={onSearch}
+        onChange={onChange}
+        allowclear
+        className = "filter"      
+      />
 
-      <TodoList todos={filteredTodos} onRemoveTodo={removeTodo} onUpdateTodo={handleUpdate}></TodoList>
+      <Button
+        className='filter-button'
+          type="primary"
+          onClick={() => setShowCompleted(!showCompleted)}>
+          {showCompleted ? "Tüm Todo'ları Göster" : "Tamamlananları Göster"}
+        </Button>
+    </div>
+    
+      <TodoList todos={filteredTodos} onRemoveTodo={removeTodo} onUpdateTodo={handleUpdate}  showCompleted={showCompleted}></TodoList>
      
     </div>
     <ToastContainer autoClose={2000}></ToastContainer>

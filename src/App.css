@@ -15,15 +15,15 @@
   padding: 20px;
 }
 
-
 * {
   margin: 0;
   padding: 0;
- 
 }
 
 .filter{
-  width: 550px;
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
   box-sizing: border-box;
   font-weight: bold;
 }
@@ -69,14 +69,16 @@ html, body {
 :where(.css-dev-only-do-not-override-1261szd).ant-input-affix-wrapper {
   position: relative;
   display: inline-flex;
-  width: 575px;
-  min-width: 0;
+  width: 405px;
+  margin-right: 20px;
+  min-width: 10px;
   padding: 4px 11px;
   color: rgba(0, 0, 0, 0.88);
   font-size: 14px;
-  line-height: 1.5714285714285714;
+  line-height: 1;
   border-radius: 6px;
   transition: all 0.2s;
+  height: min-content;
 }
 
 body {
@@ -87,5 +89,11 @@ body {
   overflow-y: scroll;
 }
 
+.searchandbutton{
+  display: flex;
+  flex-direction: row;
+}
 
-
+.filter-button{
+  width: 155px;
+}

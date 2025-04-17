@@ -26,14 +26,15 @@
 
 .todo-input,
 .todo-create-button {
-    width: 100%;
-    max-width: 550px; 
+    /* width: 100%; */
+    max-width: 583px; 
     box-sizing: border-box; 
     margin-bottom: 20px;
+    width: 583px;
 }
 
 .todo-input {
-    width: 575px;
+    width: 583px;
     padding: 5px;
     border: 1px solid #8a75ff;
     border-radius: 6px;
@@ -44,8 +45,7 @@
     transition: all 0.3s ease-in-out;
     margin-right: 5px;
     width: 100%;
-    max-width: 575px;
-    box-sizing: border-box;
+    max-width: 580px;
     margin-bottom: 20px;
 }
   
@@ -57,7 +57,7 @@
 .todo-create-button {
     margin-top: 10px;
     padding: 12px;
-    width: 575px;
+    width: 583px;
     border: none;
     border-radius: 6px;
     background-color: #6c5ce7;
@@ -66,20 +66,17 @@
     cursor: pointer;
     transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
     width: 100%;
-    max-width: 575px;
+    max-width: 583px;
     box-sizing: border-box;
     margin-bottom: 20px;
 }
 
 .todo-create-button:hover {
-    /* background-color: #5a4ec7;  */
-
     transform: scale(1.05);
 }
 
 .todo-actions {
-    display: flex
-;
+    display: flex;
     gap: 10px;
     margin-right: 10px;
 }
